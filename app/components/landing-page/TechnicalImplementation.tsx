@@ -18,14 +18,14 @@ export default function TechnicalImplementation({
 						<h1 className="text-white tracking-tight text-[32px] font-bold leading-tight md:text-4xl max-w-[720px]">
 							Technical Implementation
 						</h1>
-						<p className="text-[#92adc9] text-base font-normal leading-normal max-w-[720px]">
+						<p className="text-text-secondary text-base font-normal leading-normal max-w-[720px]">
 							This application was built to showcase clean code practices and
 							modern frontend tooling. Here is a breakdown of the core
 							technologies used.
 						</p>
 					</div>
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-						<div className="flex flex-1 gap-4 rounded-xl border border-[#324d67] bg-[#192633] p-6 flex-col shadow-sm hover:shadow-md transition-shadow group">
+						<div className="flex flex-1 gap-4 rounded-xl border border-border-highlight bg-card-alt p-6 flex-col shadow-sm hover:shadow-md transition-shadow group">
 							<div className="w-12 h-12 rounded-lg bg-blue-900/30 flex items-center justify-center group-hover:scale-110 transition-transform">
 								<Image
 									src="/react_light.svg"
@@ -39,14 +39,14 @@ export default function TechnicalImplementation({
 								<h2 className="text-white text-lg font-bold leading-tight">
 									React Architecture
 								</h2>
-								<p className="text-[#92adc9] text-sm font-normal leading-relaxed">
+								<p className="text-text-secondary text-sm font-normal leading-relaxed">
 									Built with functional components and Hooks. Implements context
 									for global state management and custom hooks for data fetching
 									logic.
 								</p>
 							</div>
 						</div>
-						<div className="flex flex-1 gap-4 rounded-xl border border-[#324d67] bg-[#192633] p-6 flex-col shadow-sm hover:shadow-md transition-shadow group">
+						<div className="flex flex-1 gap-4 rounded-xl border border-border-highlight bg-card-alt p-6 flex-col shadow-sm hover:shadow-md transition-shadow group">
 							<div className="w-12 h-12 rounded-lg bg-teal-900/30 flex items-center justify-center group-hover:scale-110 transition-transform">
 								<Image
 									src="/tailwindcss.svg"
@@ -60,14 +60,14 @@ export default function TechnicalImplementation({
 								<h2 className="text-white text-lg font-bold leading-tight">
 									Tailwind CSS
 								</h2>
-								<p className="text-[#92adc9] text-sm font-normal leading-relaxed">
+								<p className="text-text-secondary text-sm font-normal leading-relaxed">
 									Fully responsive UI built with utility-first CSS. Features
 									dark mode support and a custom configuration for consistent
 									design tokens.
 								</p>
 							</div>
 						</div>
-						<div className="flex flex-1 gap-4 rounded-xl border border-[#324d67] bg-[#192633] p-6 flex-col shadow-sm hover:shadow-md transition-shadow group">
+						<div className="flex flex-1 gap-4 rounded-xl border border-border-highlight bg-card-alt p-6 flex-col shadow-sm hover:shadow-md transition-shadow group">
 							<div className="w-12 h-12 rounded-lg bg-gray-700/30 flex items-center justify-center group-hover:scale-110 transition-transform">
 								<Image
 									src="/github_dark.svg"
@@ -81,7 +81,7 @@ export default function TechnicalImplementation({
 								<h2 className="text-white text-lg font-bold leading-tight">
 									GitHub REST API
 								</h2>
-								<p className="text-[#92adc9] text-sm font-normal leading-relaxed">
+								<p className="text-text-secondary text-sm font-normal leading-relaxed">
 									Direct integration with public endpoints to fetch real-time
 									user data, handling asynchronous states, errors, and rate
 									limits gracefully.
