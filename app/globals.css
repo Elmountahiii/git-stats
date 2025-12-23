@@ -3,12 +3,18 @@
 :root {
 	--background: #101922;
 	--foreground: #ffffff;
+	--card-dark: #161e27;
+	--border-dark: #233648;
+	--text-secondary: #92adc9;
 }
 
 @theme inline {
 	--color-primary: #137fec;
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
+	--color-card: var(--card-dark);
+	--color-border-dark: var(--border-dark);
+	--color-text-secondary: var(--text-secondary);
 	--font-space: var(--font-space-grotesk);
 	--font-body: var(--font-noto-sans);
 }
