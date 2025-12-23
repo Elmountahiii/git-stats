@@ -9,17 +9,21 @@ export interface Repository {
 	isTrending?: boolean;
 }
 
-export interface StatItem {
+export interface StatCardProps {
 	label: string;
 	value: string;
 	subValue?: string;
+	trend?: string;
+	trendUp?: boolean;
 	subValueColor?: string;
-	subValueIcon?: string;
-	footer: string;
-	icon: string;
+	footer?: string;
+	icon: React.ElementType;
 	iconColorClass: string;
 	iconBgClass: string;
-	isElite?: boolean;
+	badge?: {
+		text: string;
+		colorClass: string;
+	};
 }
 
 export interface LanguageStat {

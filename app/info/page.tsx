@@ -1,5 +1,6 @@
 import BasicInformation from "../components/info-page/Basic-Infromation";
 import Header from "../components/info-page/Header";
+import Stats from "../components/info-page/Stats";
 
 interface PageProps {
 	searchParams: Promise<{
@@ -15,6 +16,7 @@ export default async function Info({ searchParams }: PageProps) {
 				<div className="flex flex-col gap-8">
 					<Header />
 					<BasicInformation />
+					<Stats />
 				</div>
 			</main>
 		</div>
