@@ -69,7 +69,7 @@ const CommitActivity = () => {
 	const [timeRange, setTimeRange] = useState("30days");
 
 	return (
-		<div className="bg-card border border-border-dark rounded-xl p-6 h-[400px] flex flex-col w-full">
+		<div className="bg-card border border-border-dark rounded-xl p-6 h-[500px] flex flex-col w-full">
 			{/* Header */}
 			<div className="flex items-center justify-between mb-8">
 				<div className="flex items-center gap-3">
