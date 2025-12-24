@@ -1,6 +1,6 @@
 "use client";
 
-import { Code2 } from "lucide-react";
+import { Code } from "lucide-react";
 import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
 
 const data = [
@@ -16,7 +16,7 @@ const LanguageStats = () => {
 		<div className="bg-card border border-border-dark rounded-xl p-6 h-[500px] flex flex-col w-full">
 			{/* Header */}
 			<div className="flex items-center gap-3 mb-8">
-				<Code2 className="w-5 h-5 text-text-secondary" />
+				<Code className="w-5 h-5 text-text-secondary" />
 				<h3 className="text-white font-bold text-lg">Most Used Languages</h3>
 			</div>
 

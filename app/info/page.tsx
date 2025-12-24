@@ -6,7 +6,6 @@ import Organizations from "../components/info-page/Organizations";
 import Stats from "../components/info-page/Stats";
 import TopRepositories from "../components/info-page/TopRepositories";
 
-
 export default async function Info() {
 	return (
 		<div className="min-h-screen bg-background text-foreground font-space flex flex-col">
@@ -37,7 +36,6 @@ export default async function Info() {
 
 						{/* Bottom Section - Repositories */}
 						<div className="flex flex-col gap-6">
-							<h2 className="text-xl font-bold text-white">Top Repositories</h2>
 							<TopRepositories />
 						</div>
 					</div>
