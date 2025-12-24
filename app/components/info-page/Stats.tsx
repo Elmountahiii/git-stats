@@ -1,5 +1,10 @@
-import { BarChart2, GitCommit, GitPullRequest, Star, TrendingUp } from "lucide-react";
-import React from "react";
+import {
+	ChartNoAxesColumn,
+	GitCommitHorizontal,
+	GitPullRequest,
+	Star,
+	TrendingUp,
+} from "lucide-react";
 
 import { StatCardProps } from "@/app/types/types";
 
@@ -19,17 +24,23 @@ const StatCard = ({
 		<div className="bg-card border border-border-dark rounded-xl p-6 flex flex-col justify-between h-full hover:border-border-highlight transition-colors duration-200">
 			{/* Header */}
 			<div className="flex items-center gap-3 mb-4">
-				<div className={`p-2 rounded-full ${iconBgClass} flex items-center justify-center`}>
+				<div
+					className={`p-2 rounded-full ${iconBgClass} flex items-center justify-center`}
+				>
 					<Icon className={`w-5 h-5 ${iconColorClass}`} />
 				</div>
-				<span className="text-text-secondary font-medium text-sm md:text-base">{label}</span>
+				<span className="text-text-secondary font-medium text-sm md:text-base">
+					{label}
+				</span>
 			</div>
 
 			{/* Main Content */}
 			<div className="mb-2">
 				<div className="flex items-baseline gap-3 flex-wrap">
-					<h3 className="text-3xl font-bold text-foreground font-space">{value}</h3>
-					
+					<h3 className="text-3xl font-bold text-foreground font-space">
+						{value}
+					</h3>
+
 					{/* Trend or Badge */}
 					{trend && (
 						<div className="flex items-center gap-1 text-xs font-medium text-emerald-400">
@@ -37,13 +48,15 @@ const StatCard = ({
 							<span>{trend}</span>
 						</div>
 					)}
-					
+
 					{badge && (
-						<span className={`text-xs font-medium px-2 py-0.5 rounded-full bg-opacity-20 ${badge.colorClass}`}>
+						<span
+							className={`text-xs font-medium px-2 py-0.5 rounded-full bg-opacity-20 ${badge.colorClass}`}
+						>
 							{badge.text}
 						</span>
 					)}
-					
+
 					{subValue && (
 						<span className="text-sm text-text-secondary">{subValue}</span>
 					)}
@@ -62,12 +75,12 @@ const Stats = () => {
 	// Mock Data matching the design
 	const statsData: StatCardProps[] = [
 		{
-			label: "Contributions",
+			label: "Contributionssss",
 			value: "2,847",
 			trend: "+12%",
 			trendUp: true,
 			footer: "Last 12 months",
-			icon: GitCommit,
+			icon: GitCommitHorizontal,
 			iconColorClass: "text-emerald-400",
 			iconBgClass: "bg-emerald-400/10",
 		},
@@ -100,7 +113,7 @@ const Stats = () => {
 				colorClass: "text-blue-400 bg-blue-400/10", // Using blue to match "Elite" text
 			},
 			footer: "Based on global activity",
-			icon: BarChart2,
+			icon: ChartNoAxesColumn,
 			iconColorClass: "text-blue-500",
 			iconBgClass: "bg-blue-500/10",
 		},
