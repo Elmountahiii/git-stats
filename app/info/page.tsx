@@ -15,8 +15,7 @@ interface infoPageProps {
 
 export default async function Info({ searchParams }: infoPageProps) {
 	const { username } = await searchParams;
-	if (username === undefined) {
-		// naviagte to home page
+	if (username === undefined || username.trim() === "") {
 		redirect("/");
 	}
 
