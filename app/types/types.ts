@@ -1,14 +1,3 @@
-export interface Repository {
-	name: string;
-	description: string;
-	language: string;
-	languageColor: string;
-	stars: number;
-	forks: number;
-	updatedAt: string;
-	isTrending?: boolean;
-}
-
 export interface StatCardProps {
 	label: string;
 	value: string;

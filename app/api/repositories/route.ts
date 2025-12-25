@@ -3,11 +3,11 @@ import {
 	createErrorResponse,
 	createSuccessResponse,
 } from "@/app/types/http-response";
-import { GitHubOrganization } from "@/app/types/organization";
+import { GitHubRepository } from "@/app/types/github-repository";
 
-const getUserOragnizations = async (username: string) => {
+const getUserRepositories = async (username: string) => {
 	const response = await fetch(
-		`https://api.github.com/users/${username}/orgs`,
+		`https://api.github.com/users/${username}/repos`,
 		{
 			headers: {
 				Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
@@ -17,10 +17,10 @@ const getUserOragnizations = async (username: string) => {
 		},
 	);
 	if (!response.ok) {
-		throw new Error("Failed to fetch user organizations");
+		throw new Error("Failed to fetch user repositories");
 	}
-	const organizations = (await response.json()) as GitHubOrganization[];
-	return organizations;
+	const repositories = (await response.json()) as GitHubRepository[];
+	return repositories;
 };
 
 export async function GET(request: NextRequest) {
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
 		);
 	}
 
-	const userOrganizations = await getUserOragnizations(username);
+	const userrepositories = await getUserRepositories(username);
 
-	return NextResponse.json(createSuccessResponse("success", userOrganizations));
+	return NextResponse.json(createSuccessResponse("success", userrepositories));
 }

@@ -48,7 +48,7 @@ export default async function Info({ searchParams }: infoPageProps) {
 
 						{/* Bottom Section - Repositories */}
 						<div className="flex flex-col gap-6">
-							<TopRepositories />
+							<TopRepositories username={username} />
 						</div>
 					</div>
 				</div>

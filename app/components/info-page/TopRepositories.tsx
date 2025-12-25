@@ -1,58 +1,80 @@
-"use client";
-
 import { Bookmark, GitFork, Star, TrendingUp } from "lucide-react";
+import { HttpResponse } from "@/app/types/http-response";
+import { GitHubRepository } from "@/app/types/github-repository";
 
-import { Repository } from "@/app/types/types";
+interface TopRepositoriesProps {
+	username: string;
+}
 
-const mockRepos: Repository[] = [
-	{
-		name: "dotfiles",
-		description: "My configuration files for MacOS, Zsh, Neovim, and Tmux.",
-		language: "Shell",
-		languageColor: "#64748b",
-		stars: 1500,
-		forks: 156,
-		updatedAt: "2h ago",
-		isTrending: true,
-	},
-	{
-		name: "react-dashboard-kit",
-		description: "A comprehensive React dashboard starter kit featuring Redux.",
-		language: "JavaScript",
-		languageColor: "#f59e0b",
-		stars: 1200,
-		forks: 234,
-		updatedAt: "yesterday",
-	},
-	{
-		name: "node-api-boilerplate",
-		description: "Production-ready Node.js REST API boilerplate.",
-		language: "TypeScript",
-		languageColor: "#3b82f6",
-		stars: 890,
-		forks: 120,
-		updatedAt: "3d ago",
-	},
-];
+const getLanguageColor = (language: string | null): string => {
+	if (!language) return "#64748b";
 
-const RepositoryCard = ({ repo }: { repo: Repository }) => {
-	// Helper to format large numbers (e.g. 1500 -> 1.5k)
+	const colors: { [key: string]: string } = {
+		TypeScript: "#3178c6",
+		JavaScript: "#f1e05a",
+		Python: "#3572A5",
+		Rust: "#dea584",
+		Go: "#00ADD8",
+		Java: "#b07219",
+		HTML: "#e34c26",
+		CSS: "#563d7c",
+		Swift: "#F05138",
+		PHP: "#4F5D95",
+		Ruby: "#701516",
+		"C++": "#f34b7d",
+		"C#": "#178600",
+		C: "#555555",
+		Vue: "#41b883",
+		Shell: "#89e051",
+		React: "#61dafb",
+		Dart: "#00B4AB",
+		Kotlin: "#A97BFF",
+	};
+
+	return colors[language] || "#64748b";
+};
+
+const RepositoryCard = ({ repo }: { repo: GitHubRepository }) => {
 	const formatCount = (num: number) => {
 		return num >= 1000 ? `${(num / 1000).toFixed(1)}k` : num;
 	};
 
+	const formatUpdateDate = (dateString: string) => {
+		const date = new Date(dateString);
+		const now = new Date();
+		const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+		if (diffInSeconds < 60) return "just now";
+		if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
+		if (diffInSeconds < 86400)
+			return `${Math.floor(diffInSeconds / 3600)}h ago`;
+		if (diffInSeconds < 2592000)
+			return `${Math.floor(diffInSeconds / 86400)}d ago`;
+
+		return date.toLocaleDateString("en-US", {
+			month: "short",
+			day: "numeric",
+			year: date.getFullYear() !== now.getFullYear() ? "numeric" : undefined,
+		});
+	};
+
 	return (
-		<div className="bg-card border border-border-dark rounded-xl p-6 hover:border-border-highlight transition-all duration-200 group">
+		<a
+			href={repo.html_url}
+			target="_blank"
+			rel="noopener noreferrer"
+			className="bg-card border border-border-dark rounded-xl p-6 hover:border-border-highlight transition-all duration-200 group block"
+		>
 			<div className="flex items-start justify-between mb-3">
 				<div className="flex items-center gap-3">
 					<div className="p-2 rounded-lg bg-surface border border-border-dark group-hover:border-primary/30 transition-colors">
 						<Bookmark className="w-4 h-4 text-text-secondary group-hover:text-primary transition-colors" />
 					</div>
-					<h4 className="text-lg font-bold text-white hover:text-primary transition-colors cursor-pointer">
+					<h4 className="text-lg font-bold text-white group-hover:text-primary transition-colors cursor-pointer">
 						{repo.name}
 					</h4>
 				</div>
-				{repo.isTrending && (
+				{repo.stargazers_count > 5 && (
 					<div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
 						<TrendingUp className="w-3 h-3 text-emerald-500" />
 						<span className="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">
@@ -68,27 +90,26 @@ const RepositoryCard = ({ repo }: { repo: Repository }) => {
 
 			<div className="flex items-center justify-between">
 				<div className="flex items-center gap-6">
-					{/* Language */}
-					<div className="flex items-center gap-2">
-						<div
-							className="w-3 h-3 rounded-full"
-							style={{ backgroundColor: repo.languageColor }}
-						/>
-						<span className="text-xs font-medium text-gray-300">
-							{repo.language}
-						</span>
-					</div>
+					{repo.language && (
+						<div className="flex items-center gap-2">
+							<div
+								className="w-3 h-3 rounded-full"
+								style={{ backgroundColor: getLanguageColor(repo.language) }}
+							/>
+							<span className="text-xs font-medium text-gray-300">
+								{repo.language}
+							</span>
+						</div>
+					)}
 
-					{/* Stars */}
-					<div className="flex items-center gap-1.5 text-text-secondary hover:text-yellow-400 transition-colors cursor-pointer">
+					<div className="flex items-center gap-1.5 text-text-secondary group-hover:text-yellow-400 transition-colors">
 						<Star className="w-4 h-4" />
 						<span className="text-xs font-medium">
-							{formatCount(repo.stars)}
+							{formatCount(repo.stargazers_count)}
 						</span>
 					</div>
 
-					{/* Forks */}
-					<div className="flex items-center gap-1.5 text-text-secondary hover:text-primary transition-colors cursor-pointer">
+					<div className="flex items-center gap-1.5 text-text-secondary group-hover:text-primary transition-colors">
 						<GitFork className="w-4 h-4" />
 						<span className="text-xs font-medium">
 							{formatCount(repo.forks)}
@@ -97,14 +118,22 @@ const RepositoryCard = ({ repo }: { repo: Repository }) => {
 				</div>
 
 				<div className="text-xs text-text-secondary">
-					Updated {repo.updatedAt}
+					Updated {formatUpdateDate(repo.updated_at)}
 				</div>
 			</div>
-		</div>
+		</a>
 	);
 };
 
-const TopRepositories = () => {
+const TopRepositories = async ({ username }: TopRepositoriesProps) => {
+	const rawResponse = await fetch(
+		`${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/repositories?username=${username}`,
+	);
+	if (!rawResponse.ok) {
+		throw new Error("Failed to fetch user oraganizations");
+	}
+	const response: HttpResponse<GitHubRepository[]> = await rawResponse.json();
+	const repositories = response.data;
 	return (
 		<div className="flex flex-col gap-6 w-full">
 			<div className="flex items-center justify-between">
@@ -114,9 +143,24 @@ const TopRepositories = () => {
 			</div>
 
 			<div className="grid grid-cols-1 gap-4">
-				{mockRepos.map((repo) => (
-					<RepositoryCard key={repo.name} repo={repo} />
-				))}
+				{repositories.length > 0 ? (
+					repositories.map((repo) => (
+						<RepositoryCard key={repo.name} repo={repo} />
+					))
+				) : (
+					<div className="flex flex-col items-center justify-center p-12 bg-card border border-border-dark rounded-2xl text-center">
+						<div className="w-16 h-16 bg-surface rounded-full flex items-center justify-center mb-4 border border-border-dark">
+							<Bookmark className="w-8 h-8 text-text-secondary opacity-50" />
+						</div>
+						<h4 className="text-lg font-bold text-white mb-2">
+							No Repositories Found
+						</h4>
+						<p className="text-text-secondary text-sm max-w-xs">
+							This user doesn&apos;t have any public repositories to display
+							yet.
+						</p>
+					</div>
+				)}
 			</div>
 		</div>
 	);
