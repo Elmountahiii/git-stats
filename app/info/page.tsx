@@ -4,9 +4,22 @@ import Header from "../components/info-page/Header";
 import LanguageStats from "../components/info-page/LanguageStats";
 import Organizations from "../components/info-page/Organizations";
 import Stats from "../components/info-page/Stats";
+import { redirect } from "next/navigation";
 import TopRepositories from "../components/info-page/TopRepositories";
 
-export default async function Info() {
+interface infoPageProps {
+	searchParams: Promise<{
+		username?: string;
+	}>;
+}
+
+export default async function Info({ searchParams }: infoPageProps) {
+	const { username } = await searchParams;
+	if (username === undefined) {
+		// naviagte to home page
+		redirect("/");
+	}
+
 	return (
 		<div className="min-h-screen bg-background text-foreground font-space flex flex-col">
 			<Header />
@@ -15,7 +28,7 @@ export default async function Info() {
 				<div className="flex flex-col lg:flex-row gap-8">
 					{/* Left Sidebar - Profile Info */}
 					<div className="w-full lg:w-[320px] shrink-0 flex flex-col gap-6">
-						<BasicInformation />
+						<BasicInformation username={username} />
 						<Organizations />
 					</div>
 
