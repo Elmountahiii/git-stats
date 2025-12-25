@@ -63,61 +63,61 @@ const RepositoryCard = ({ repo }: { repo: GitHubRepository }) => {
 			href={repo.html_url}
 			target="_blank"
 			rel="noopener noreferrer"
-			className="bg-card border border-border-dark rounded-xl p-6 hover:border-border-highlight transition-all duration-200 group block"
+			className="bg-card border border-border-dark rounded-xl p-4 hover:border-border-highlight transition-all duration-200 group block"
 		>
-			<div className="flex items-start justify-between mb-3">
-				<div className="flex items-center gap-3">
-					<div className="p-2 rounded-lg bg-surface border border-border-dark group-hover:border-primary/30 transition-colors">
-						<Bookmark className="w-4 h-4 text-text-secondary group-hover:text-primary transition-colors" />
+			<div className="flex items-start justify-between mb-2">
+				<div className="flex items-center gap-2.5">
+					<div className="p-1.5 rounded-lg bg-surface border border-border-dark group-hover:border-primary/30 transition-colors">
+						<Bookmark className="w-3.5 h-3.5 text-text-secondary group-hover:text-primary transition-colors" />
 					</div>
-					<h4 className="text-lg font-bold text-white group-hover:text-primary transition-colors cursor-pointer">
+					<h4 className="text-base font-bold text-white group-hover:text-primary transition-colors cursor-pointer">
 						{repo.name}
 					</h4>
 				</div>
 				{repo.stargazers_count > 5 && (
-					<div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-						<TrendingUp className="w-3 h-3 text-emerald-500" />
-						<span className="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">
+					<div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+						<TrendingUp className="w-2.5 h-2.5 text-emerald-500" />
+						<span className="text-[9px] font-bold text-emerald-500 uppercase tracking-wider">
 							Trending
 						</span>
 					</div>
 				)}
 			</div>
 
-			<p className="text-text-secondary text-sm leading-relaxed mb-6 max-w-2xl">
+			<p className="text-text-secondary text-xs leading-relaxed mb-4 max-w-2xl line-clamp-2">
 				{repo.description}
 			</p>
 
 			<div className="flex items-center justify-between">
-				<div className="flex items-center gap-6">
+				<div className="flex items-center gap-4">
 					{repo.language && (
-						<div className="flex items-center gap-2">
+						<div className="flex items-center gap-1.5">
 							<div
-								className="w-3 h-3 rounded-full"
+								className="w-2.5 h-2.5 rounded-full"
 								style={{ backgroundColor: getLanguageColor(repo.language) }}
 							/>
-							<span className="text-xs font-medium text-gray-300">
+							<span className="text-[11px] font-medium text-gray-300">
 								{repo.language}
 							</span>
 						</div>
 					)}
 
-					<div className="flex items-center gap-1.5 text-text-secondary group-hover:text-yellow-400 transition-colors">
-						<Star className="w-4 h-4" />
-						<span className="text-xs font-medium">
+					<div className="flex items-center gap-1 text-text-secondary group-hover:text-yellow-400 transition-colors">
+						<Star className="w-3.5 h-3.5" />
+						<span className="text-[11px] font-medium">
 							{formatCount(repo.stargazers_count)}
 						</span>
 					</div>
 
-					<div className="flex items-center gap-1.5 text-text-secondary group-hover:text-primary transition-colors">
-						<GitFork className="w-4 h-4" />
-						<span className="text-xs font-medium">
+					<div className="flex items-center gap-1 text-text-secondary group-hover:text-primary transition-colors">
+						<GitFork className="w-3.5 h-3.5" />
+						<span className="text-[11px] font-medium">
 							{formatCount(repo.forks)}
 						</span>
 					</div>
 				</div>
 
-				<div className="text-xs text-text-secondary">
+				<div className="text-[11px] text-text-secondary">
 					Updated {formatUpdateDate(repo.updated_at)}
 				</div>
 			</div>
@@ -132,7 +132,8 @@ const TopRepositories = async ({ username }: TopRepositoriesProps) => {
 	if (!rawResponse.ok) {
 		throw new Error("Failed to fetch user oraganizations");
 	}
-	const response: HttpResponse<GitHubRepository[]> = await rawResponse.json();
+	const response: HttpResponse<GitHubRepository[]> =
+		await rawResponse.json();
 	const repositories = response.data;
 	return (
 		<div className="flex flex-col gap-6 w-full">

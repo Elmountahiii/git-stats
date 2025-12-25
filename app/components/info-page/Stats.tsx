@@ -21,51 +21,51 @@ const StatCard = ({
 	badge,
 }: StatCardProps) => {
 	return (
-		<div className="bg-card border border-border-dark rounded-xl p-6 flex flex-col justify-between h-full hover:border-border-highlight transition-colors duration-200">
+		<div className="bg-card border border-border-dark rounded-xl p-4 flex flex-col justify-between h-full hover:border-border-highlight transition-colors duration-200">
 			{/* Header */}
-			<div className="flex items-center gap-3 mb-4">
+			<div className="flex items-center gap-2.5 mb-3">
 				<div
-					className={`p-2 rounded-lg ${iconBgClass} flex items-center justify-center`}
+					className={`p-1.5 rounded-lg ${iconBgClass} flex items-center justify-center`}
 				>
-					<Icon className={`w-5 h-5 ${iconColorClass}`} />
+					<Icon className={`w-4 h-4 ${iconColorClass}`} />
 				</div>
-				<span className="text-text-secondary font-medium text-sm md:text-base">
+				<span className="text-text-secondary font-medium text-xs md:text-sm">
 					{label}
 				</span>
 			</div>
 
 			{/* Main Content */}
-			<div className="mb-2">
-				<div className="flex items-baseline gap-3 flex-wrap">
-					<h3 className="text-3xl font-bold text-white font-space">
+			<div className="mb-1.5">
+				<div className="flex items-baseline gap-2 flex-wrap">
+					<h3 className="text-2xl font-bold text-white font-space">
 						{value}
 					</h3>
 
 					{/* Trend or Badge */}
 					{trend && (
-						<div className="flex items-center gap-1 text-xs font-medium text-emerald-400">
-							{trendUp && <TrendingUp className="w-3 h-3" />}
+						<div className="flex items-center gap-1 text-[10px] font-medium text-emerald-400">
+							{trendUp && <TrendingUp className="w-2.5 h-2.5" />}
 							<span>{trend}</span>
 						</div>
 					)}
 
 					{badge && (
 						<span
-							className={`text-xs font-medium px-2 py-0.5 rounded-full ${badge.colorClass}`}
+							className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${badge.colorClass}`}
 						>
 							{badge.text}
 						</span>
 					)}
 
 					{subValue && (
-						<span className="text-sm text-text-secondary">{subValue}</span>
+						<span className="text-xs text-text-secondary">{subValue}</span>
 					)}
 				</div>
 			</div>
 
 			{/* Footer */}
-			<div className="mt-auto pt-2 border-t border-gray-800/50">
-				<p className="text-xs text-text-secondary uppercase tracking-wider font-semibold">{footer}</p>
+			<div className="mt-auto pt-1.5 border-t border-gray-800/50">
+				<p className="text-[10px] text-text-secondary uppercase tracking-wider font-semibold">{footer}</p>
 			</div>
 		</div>
 	);
