@@ -42,7 +42,7 @@ export default async function Info({ searchParams }: infoPageProps) {
 								<CommitActivity />
 							</div>
 							<div className="xl:col-span-1">
-								<LanguageStats />
+								<LanguageStats username={username} />
 							</div>
 						</div>
 
