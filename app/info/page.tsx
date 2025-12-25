@@ -28,7 +28,7 @@ export default async function Info({ searchParams }: infoPageProps) {
 					{/* Left Sidebar - Profile Info */}
 					<div className="w-full lg:w-[320px] shrink-0 flex flex-col gap-6">
 						<BasicInformation username={username} />
-						<Organizations />
+						<Organizations username={username} />
 					</div>
 
 					{/* Main Content Area */}
