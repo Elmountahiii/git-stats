@@ -1,8 +1,8 @@
 import {
-	ChartNoAxesColumn,
-	GitCommitHorizontal,
-	GitPullRequest,
-	Star,
+	Trophy,
+	Flame,
+	GitCommitVertical,
+	CalendarDays,
 	TrendingUp,
 } from "lucide-react";
 
@@ -25,7 +25,7 @@ const StatCard = ({
 			{/* Header */}
 			<div className="flex items-center gap-3 mb-4">
 				<div
-					className={`p-2 rounded-full ${iconBgClass} flex items-center justify-center`}
+					className={`p-2 rounded-lg ${iconBgClass} flex items-center justify-center`}
 				>
 					<Icon className={`w-5 h-5 ${iconColorClass}`} />
 				</div>
@@ -37,7 +37,7 @@ const StatCard = ({
 			{/* Main Content */}
 			<div className="mb-2">
 				<div className="flex items-baseline gap-3 flex-wrap">
-					<h3 className="text-3xl font-bold text-foreground font-space">
+					<h3 className="text-3xl font-bold text-white font-space">
 						{value}
 					</h3>
 
@@ -51,7 +51,7 @@ const StatCard = ({
 
 					{badge && (
 						<span
-							className={`text-xs font-medium px-2 py-0.5 rounded-full bg-opacity-20 ${badge.colorClass}`}
+							className={`text-xs font-medium px-2 py-0.5 rounded-full ${badge.colorClass}`}
 						>
 							{badge.text}
 						</span>
@@ -64,58 +64,55 @@ const StatCard = ({
 			</div>
 
 			{/* Footer */}
-			<div className="mt-auto pt-2">
-				<p className="text-sm text-text-secondary">{footer}</p>
+			<div className="mt-auto pt-2 border-t border-gray-800/50">
+				<p className="text-xs text-text-secondary uppercase tracking-wider font-semibold">{footer}</p>
 			</div>
 		</div>
 	);
 };
 
 const Stats = () => {
-	// Mock Data matching the design
+	// Mock Data for the new design
 	const statsData: StatCardProps[] = [
 		{
-			label: "Contributionssss",
-			value: "2,847",
-			trend: "+12%",
+			label: "Global Rank",
+			value: "Top 1%",
+			badge: {
+				text: "Elite",
+				colorClass: "text-blue-400 bg-blue-400/10",
+			},
+			footer: "Based on commits",
+			icon: Trophy,
+			iconColorClass: "text-blue-400",
+			iconBgClass: "bg-blue-400/10",
+		},
+		{
+			label: "Longest Streak",
+			value: "45 Days",
+			trend: "+5",
 			trendUp: true,
-			footer: "Last 12 months",
-			icon: GitCommitHorizontal,
+			footer: "Personal Best",
+			icon: Flame,
+			iconColorClass: "text-orange-500",
+			iconBgClass: "bg-orange-500/10",
+		},
+		{
+			label: "Total Commits",
+			value: "1,284",
+			subValue: "this year",
+			footer: "Across all repos",
+			icon: GitCommitVertical,
 			iconColorClass: "text-emerald-400",
 			iconBgClass: "bg-emerald-400/10",
 		},
 		{
-			label: "Stars Earned",
-			value: "3.4k",
-			subValue: "Across all repos",
-			footer: "Top 5% of users",
-			icon: Star,
-			iconColorClass: "text-yellow-400",
-			iconBgClass: "bg-yellow-400/10",
-		},
-		{
-			label: "Pull Requests",
-			value: "432",
-			badge: {
-				text: "402 merged",
-				colorClass: "text-purple-400 bg-purple-400/10",
-			},
-			footer: "93% acceptance rate",
-			icon: GitPullRequest,
+			label: "Most Active",
+			value: "October",
+			subValue: "156 commits",
+			footer: "Peak Productivity",
+			icon: CalendarDays,
 			iconColorClass: "text-purple-400",
 			iconBgClass: "bg-purple-400/10",
-		},
-		{
-			label: "Impact Score",
-			value: "A+",
-			badge: {
-				text: "Elite",
-				colorClass: "text-blue-400 bg-blue-400/10", // Using blue to match "Elite" text
-			},
-			footer: "Based on global activity",
-			icon: ChartNoAxesColumn,
-			iconColorClass: "text-blue-500",
-			iconBgClass: "bg-blue-500/10",
 		},
 	];
 
