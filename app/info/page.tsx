@@ -39,7 +39,7 @@ export default async function Info({ searchParams }: infoPageProps) {
 						{/* Middle Section - Charts */}
 						<div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
 							<div className="xl:col-span-2">
-								<CommitActivity />
+								<CommitActivity username={username} />
 							</div>
 							<div className="xl:col-span-1">
 								<LanguageStats username={username} />
