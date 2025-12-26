@@ -1,0 +1,15 @@
+services:
+  git-stats:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: git-stats-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
+      - GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN}
+    env_file:
+      - .env
+    restart: unless-stopped
