@@ -34,7 +34,7 @@ export default async function Info({ searchParams }: infoPageProps) {
 					{/* Main Content Area */}
 					<div className="flex-1 flex flex-col gap-6 min-w-0">
 						{/* Top Stats Cards */}
-						<Stats />
+						<Stats username={username} />
 
 						{/* Middle Section - Charts */}
 						<div className="grid grid-cols-1 xl:grid-cols-3 gap-6">

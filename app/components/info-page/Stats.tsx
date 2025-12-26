@@ -7,6 +7,8 @@ import {
 } from "lucide-react";
 
 import { StatCardProps } from "@/app/types/types";
+import { UserStats } from "@/app/api/stats/route";
+import { HttpResponse } from "@/app/types/http-response";
 
 const StatCard = ({
 	label,
@@ -37,9 +39,7 @@ const StatCard = ({
 			{/* Main Content */}
 			<div className="mb-1.5">
 				<div className="flex items-baseline gap-2 flex-wrap">
-					<h3 className="text-2xl font-bold text-white font-space">
-						{value}
-					</h3>
+					<h3 className="text-2xl font-bold text-white font-space">{value}</h3>
 
 					{/* Trend or Badge */}
 					{trend && (
@@ -62,54 +62,88 @@ const StatCard = ({
 					)}
 				</div>
 			</div>
-
-			{/* Footer */}
-			<div className="mt-auto pt-1.5 border-t border-gray-800/50">
-				<p className="text-[10px] text-text-secondary uppercase tracking-wider font-semibold">{footer}</p>
-			</div>
 		</div>
 	);
 };
 
-const Stats = () => {
-	// Mock Data for the new design
+const getRankBadge = (rank: string): { text: string; colorClass: string } => {
+	if (rank.includes("1%")) {
+		return { text: "Elite", colorClass: "text-blue-400 bg-blue-400/10" };
+	}
+	if (rank.includes("5%")) {
+		return { text: "Top Tier", colorClass: "text-purple-400 bg-purple-400/10" };
+	}
+	if (rank.includes("10%")) {
+		return {
+			text: "Excellent",
+			colorClass: "text-emerald-400 bg-emerald-400/10",
+		};
+	}
+	if (rank.includes("20%")) {
+		return { text: "Great", colorClass: "text-green-400 bg-green-400/10" };
+	}
+	if (rank.includes("30%")) {
+		return { text: "Good", colorClass: "text-yellow-400 bg-yellow-400/10" };
+	}
+	return { text: "Active", colorClass: "text-gray-400 bg-gray-400/10" };
+};
+
+const formatNumber = (num: number): string => {
+	if (num >= 1000000) {
+		return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+	}
+	if (num >= 1000) {
+		return (num / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+	}
+	return num.toLocaleString();
+};
+
+interface StatsProps {
+	username: string;
+}
+
+const Stats = async ({ username }: StatsProps) => {
+	const rawResponse = await fetch(
+		`${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/stats?username=${username}`,
+	);
+
+	if (!rawResponse.ok) {
+		throw new Error("Failed to fetch stats data");
+	}
+
+	const response: HttpResponse<UserStats> = await rawResponse.json();
+	const stats = response.data;
+
 	const statsData: StatCardProps[] = [
 		{
-			label: "Global Rank",
-			value: "Top 1%",
-			badge: {
-				text: "Elite",
-				colorClass: "text-blue-400 bg-blue-400/10",
-			},
-			footer: "Based on commits",
+			label: "Universal Rank",
+			value: stats.universalRank,
+			badge: getRankBadge(stats.universalRank),
+
 			icon: Trophy,
 			iconColorClass: "text-blue-400",
 			iconBgClass: "bg-blue-400/10",
 		},
 		{
 			label: "Longest Streak",
-			value: "45 Days",
-			trend: "+5",
-			trendUp: true,
-			footer: "Personal Best",
+			value: `${stats.longestStreak} Days`,
+
 			icon: Flame,
 			iconColorClass: "text-orange-500",
 			iconBgClass: "bg-orange-500/10",
 		},
 		{
 			label: "Total Commits",
-			value: "1,284",
+			value: formatNumber(stats.totalCommits),
 			subValue: "this year",
-			footer: "Across all repos",
+
 			icon: GitCommitVertical,
 			iconColorClass: "text-emerald-400",
 			iconBgClass: "bg-emerald-400/10",
 		},
 		{
 			label: "Most Active",
-			value: "October",
-			subValue: "156 commits",
-			footer: "Peak Productivity",
+			value: stats.mostActiveMonth,
 			icon: CalendarDays,
 			iconColorClass: "text-purple-400",
 			iconBgClass: "bg-purple-400/10",
