@@ -31,7 +31,7 @@ export default function Header() {
 						</nav>
 
 						<Link
-							href="https://github.com"
+							href="https://github.com/Elmountahiii/git-stats"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="gap-1 flex items-center justify-center h-10 px-5 rounded-lg  bg-white  text-gray-900 font-body text-sm font-bold shadow-sm hover:opacity-90 transition-all active:scale-95"
