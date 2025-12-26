@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import { HttpResponse } from "@/app/types/http-response";
 import { GitHubOrganization } from "@/app/types/organization";

@@ -12,13 +12,13 @@ export default function TechnicalImplementation({
 			className="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-10 bg-transparent"
 			id={id}
 		>
-			<div className="layout-content-container flex flex-col max-w-[960px] flex-1">
+			<div className="layout-content-container flex flex-col max-w-240 flex-1">
 				<div className="flex flex-col gap-10 py-10 @container">
 					<div className="flex flex-col gap-4 text-center items-center">
-						<h1 className="text-white tracking-tight text-[32px] font-bold leading-tight md:text-4xl max-w-[720px]">
+						<h1 className="text-white tracking-tight text-[32px] font-bold leading-tight md:text-4xl max-w-180">
 							Technical Implementation
 						</h1>
-						<p className="text-text-secondary text-base font-normal leading-normal max-w-[720px]">
+						<p className="text-text-secondary text-base font-normal leading-normal max-w-180">
 							This application was built to showcase clean code practices and
 							modern frontend tooling. Here is a breakdown of the core
 							technologies used.

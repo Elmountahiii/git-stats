@@ -5,10 +5,10 @@ export default function Hero() {
 		<div className="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-5">
 			<div className="layout-content-container flex flex-col max-w-5xl flex-1">
 				<div className="@container">
-					<div className="flex flex-col gap-6 py-16 @[480px]:gap-8 items-center text-center relative overflow-hidden rounded-3xl bg-gradient-to-br from-surface-alt via-transparent to-primary/10 border border-border-dark px-6 md:px-12 shadow-sm">
+					<div className="flex flex-col gap-6 py-16 @[480px]:gap-8 items-center text-center relative overflow-hidden rounded-3xl bg-linear-to-br from-surface-alt via-transparent to-primary/10 border border-border-dark px-6 md:px-12 shadow-sm">
 						<div className="absolute -top-20 -right-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 						<div className="absolute -bottom-20 -left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-						<div className="flex flex-col gap-6 @[480px]:min-w-[400px] @[480px]:gap-8 justify-center items-center w-full z-10 max-w-[800px]">
+						<div className="flex flex-col gap-6 @[480px]:min-w-[400px] @[480px]:gap-8 justify-center items-center w-full z-10 max-w-200">
 							<div className="flex flex-col gap-5 items-center">
 								<div className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/20 px-4 py-1.5 text-xs font-bold text-primary shadow-sm hover:bg-primary/15 transition-colors cursor-default">
 									<span className="relative flex h-2.5 w-2.5">
@@ -17,7 +17,7 @@ export default function Hero() {
 									</span>
 									Live Interactive Demo
 								</div>
-								<h1 className="text-white text-5xl font-black leading-[1.1] tracking-[-0.033em] @[480px]:text-6xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 pb-2">
+								<h1 className="text-white text-5xl font-black leading-[1.1] tracking-[-0.033em] @[480px]:text-6xl md:text-7xl bg-clip-text text-transparent bg-linear-to-r from-white to-gray-400 pb-2">
 									Explore GitHub
 									<br className="hidden sm:block" />
 									User Statistics
@@ -28,17 +28,17 @@ export default function Hero() {
 									patterns with an interactive, real-time dashboard.
 								</h2>
 							</div>
-							<label className="flex flex-col w-full max-w-[560px] h-14 md:h-16 shadow-xl shadow-black/20 transform transition-transform hover:scale-[1.01]">
+							<label className="flex flex-col w-full max-w-140 h-14 md:h-16 shadow-xl shadow-black/20 transform transition-transform hover:scale-[1.01]">
 								<div className="flex w-full flex-1 items-stretch rounded-xl h-full overflow-hidden ring-1 ring-border-highlight focus-within:ring-2 focus-within:ring-primary bg-surface-alt transition-all">
 									<div className="text-text-secondary flex border-none items-center justify-center pl-5 border-r-0">
-										<Search className="w-[22px] h-[22px]" />
+										<Search className="w-5.5 h-5.5" />
 									</div>
 									<input
 										className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-white focus:outline-0 border-none bg-transparent h-full placeholder:text-text-secondary/60 px-4 text-base font-normal leading-normal"
 										placeholder="Try searching 'torvalds' or 'gaearon'..."
 									/>
 									<div className="flex items-center justify-center border-l-0 border-none pr-2 py-2">
-										<button className="flex min-w-[100px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-full px-6 bg-primary hover:bg-primary/90 text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors shadow-sm">
+										<button className="flex `min-w-25 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-full px-6 bg-primary hover:bg-primary/90 text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors shadow-sm">
 											<span className="truncate">Search</span>
 										</button>
 									</div>

@@ -19,7 +19,6 @@ const CommitActivity = async ({ username }: CommitActivityProps) => {
 		await rawResponse.json();
 	const data = response.data;
 
-	// Format daily data for chart (last 30 days shown by default)
 	const dailyData = data.dailyActivity.map((day) => {
 		const date = new Date(day.date);
 		return {
@@ -31,7 +30,6 @@ const CommitActivity = async ({ username }: CommitActivityProps) => {
 		};
 	});
 
-	// Format weekly data for chart
 	const weeklyData = data.weeklyActivity.map((week) => {
 		const date = new Date(week.week);
 		return {
@@ -43,7 +41,6 @@ const CommitActivity = async ({ username }: CommitActivityProps) => {
 		};
 	});
 
-	// Format monthly data for chart
 	const monthlyData = data.monthlyActivity.map((month) => ({
 		date: month.month,
 		commits: month.commits,

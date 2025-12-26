@@ -16,7 +16,6 @@ const StatCard = ({
 	subValue,
 	trend,
 	trendUp,
-	footer,
 	icon: Icon,
 	iconColorClass,
 	iconBgClass,
@@ -24,7 +23,6 @@ const StatCard = ({
 }: StatCardProps) => {
 	return (
 		<div className="bg-card border border-border-dark rounded-xl p-4 flex flex-col justify-between h-full hover:border-border-highlight transition-colors duration-200">
-			{/* Header */}
 			<div className="flex items-center gap-2.5 mb-3">
 				<div
 					className={`p-1.5 rounded-lg ${iconBgClass} flex items-center justify-center`}
@@ -36,12 +34,10 @@ const StatCard = ({
 				</span>
 			</div>
 
-			{/* Main Content */}
 			<div className="mb-1.5">
 				<div className="flex items-baseline gap-2 flex-wrap">
 					<h3 className="text-2xl font-bold text-white font-space">{value}</h3>
 
-					{/* Trend or Badge */}
 					{trend && (
 						<div className="flex items-center gap-1 text-[10px] font-medium text-emerald-400">
 							{trendUp && <TrendingUp className="w-2.5 h-2.5" />}

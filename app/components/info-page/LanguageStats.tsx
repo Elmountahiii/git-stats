@@ -19,7 +19,6 @@ const LanguageStats = async ({ username }: LanguageStatsProps) => {
 	const response: HttpResponse<LanguageStatsType[]> = await rawResponse.json();
 	const languages = response.data;
 
-	// Take top 5 languages and group the rest as "Others"
 	const topLanguages = languages.slice(0, 5);
 	const otherLanguages = languages.slice(5);
 
@@ -45,17 +44,15 @@ const LanguageStats = async ({ username }: LanguageStatsProps) => {
 	const totalLanguages = languages.length;
 
 	return (
-		<div className="bg-card border border-border-dark rounded-xl p-6 h-[500px] flex flex-col w-full">
-			{/* Header */}
+		<div className="bg-card border border-border-dark rounded-xl p-6 h-125 flex flex-col w-full">
 			<div className="flex items-center gap-3 mb-8">
 				<Code className="w-5 h-5 text-text-secondary" />
 				<h3 className="text-white font-bold text-lg">Most Used Languages</h3>
 			</div>
 
-			{/* Chart Area */}
 			<div className="relative flex-1 w-full min-h-0">
 				<LanguageChart data={chartData} />
-				{/* Center Label */}
+
 				<div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
 					<span className="text-3xl font-bold text-white font-space">
 						{totalLanguages}
@@ -64,7 +61,6 @@ const LanguageStats = async ({ username }: LanguageStatsProps) => {
 				</div>
 			</div>
 
-			{/* Custom Legend */}
 			<div className="mt-6 space-y-3">
 				{chartData.map((item) => (
 					<div key={item.name} className="flex items-center justify-between">

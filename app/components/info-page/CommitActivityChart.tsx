@@ -81,8 +81,7 @@ const CommitActivityChart = ({
 	const chartData = getChartData();
 
 	return (
-		<div className="bg-card border border-border-dark rounded-xl p-6 h-[500px] flex flex-col w-full">
-			{/* Header */}
+		<div className="bg-card border border-border-dark rounded-xl p-6 h-125 flex flex-col w-full">
 			<div className="flex items-center justify-between mb-8">
 				<div className="flex items-center gap-3">
 					<Calendar className="w-5 h-5 text-text-secondary" />
@@ -104,7 +103,6 @@ const CommitActivityChart = ({
 				</div>
 			</div>
 
-			{/* Chart Area */}
 			<div className="flex-1 w-full min-h-0">
 				<ResponsiveContainer width="100%" height="100%">
 					<BarChart data={chartData} style={{ outline: "none" }}>

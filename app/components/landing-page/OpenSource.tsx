@@ -4,8 +4,8 @@ import Link from "next/link";
 export default function OpenSource() {
 	return (
 		<div className="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-10">
-			<div className="layout-content-container flex flex-col max-w-[960px] flex-1">
-				<div className="flex flex-col items-center gap-8 rounded-2xl bg-gradient-to-b from-surface-hover to-transparent p-8 md:p-12 border border-border-highlight">
+			<div className="layout-content-container flex flex-col max-w-240 flex-1">
+				<div className="flex flex-col items-center gap-8 rounded-2xl bg-linear-to-b from-surface-hover to-transparent p-8 md:p-12 border border-border-highlight">
 					<div className="text-center max-w-2xl">
 						<h2 className="text-white text-2xl md:text-3xl font-bold mb-4">
 							Open Source & Transparent
