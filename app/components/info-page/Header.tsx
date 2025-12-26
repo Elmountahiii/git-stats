@@ -22,12 +22,9 @@ export default function Header() {
 			<div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
 				<div className="flex items-center gap-8 flex-1">
 					<Link href="/" className="flex items-center gap-3 text-primary">
-						<h2 className="text-white text-lg font-bold tracking-tight">
+						<h2 className="text-white text-2xl font-bold tracking-tight">
 							GitStats
 						</h2>
-						<span className="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-primary/10 text-primary border border-primary/20 font-body">
-							Portfolio
-						</span>
 					</Link>
 				</div>
 

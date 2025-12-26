@@ -5,6 +5,7 @@ import {
 	createSuccessResponse,
 } from "@/app/types/http-response";
 
+
 const fetchUser = async (username: string) => {
 	const response = await fetch(`https://api.github.com/users/${username}`, {
 		headers: {
@@ -14,6 +15,14 @@ const fetchUser = async (username: string) => {
 		},
 	});
 	if (!response.ok) {
+		if (response.status === 404) {
+			throw new Error("User not found");
+		}
+		if (response.status === 403) {
+			throw new Error(
+				"GitHub API rate limit exceeded. Please try again later.",
+			);
+		}
 		throw new Error("Failed to fetch user data");
 	}
 	const user = (await response.json()) as GitHubUser;
@@ -39,8 +48,14 @@ export async function GET(request: NextRequest) {
 		const errorMessage =
 			error instanceof Error ? error.message : "Failed to fetch user data";
 
+		const status = errorMessage.includes("not found")
+			? 404
+			: errorMessage.includes("rate limit")
+				? 429
+				: 500;
+
 		return NextResponse.json(createErrorResponse("failed", errorMessage), {
-			status: 500,
+			status,
 		});
 	}
 }

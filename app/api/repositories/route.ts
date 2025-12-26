@@ -7,16 +7,22 @@ import { GitHubRepository } from "@/app/types/github-repository";
 
 const fetchRepositories = async (username: string) => {
 	const response = await fetch(
-		`https://api.github.com/users/${username}/repos`,
+		`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`,
 		{
 			headers: {
 				Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
 				Accept: "application/vnd.github+json",
 				"X-GitHub-Api-Version": "2022-11-28",
-			},
+			}
 		},
 	);
 	if (!response.ok) {
+		if (response.status === 404) {
+			throw new Error("User not found");
+		}
+		if (response.status === 403) {
+			throw new Error("API rate limit exceeded. Please try again later.");
+		}
 		throw new Error("Failed to fetch user repositories");
 	}
 	const repositories = (await response.json()) as GitHubRepository[];
@@ -42,8 +48,14 @@ export async function GET(request: NextRequest) {
 		const errorMessage =
 			error instanceof Error ? error.message : "Failed to fetch repositories";
 
+		const status = errorMessage.includes("not found")
+			? 404
+			: errorMessage.includes("rate limit")
+				? 429
+				: 500;
+
 		return NextResponse.json(createErrorResponse("failed", errorMessage), {
-			status: 500,
+			status,
 		});
 	}
 }

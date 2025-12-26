@@ -46,7 +46,7 @@ const BasicInformation = async ({ username }: BasicInformationProps) => {
 		<aside className="w-full lg:w-[320px] shrink-0 flex flex-col gap-6">
 			<div className="lg:sticky lg:top-24 flex flex-col gap-6">
 				<div className="bg-card-dark rounded-2xl border border-gray-800 overflow-hidden shadow-sm relative">
-					<div className="h-32 `bg-linear-to-br from-primary/20 via-primary/5 to-transparent relative">
+					<div className="h-32 bg-linear-to-br from-primary/20 via-primary/5 to-transparent relative">
 						<div
 							className="absolute inset-0 bg-opacity-10"
 							style={{

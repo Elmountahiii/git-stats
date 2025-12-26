@@ -8,12 +8,9 @@ export default function Header() {
 				<header className="flex items-center justify-between whitespace-nowrap px-4 py-3 md:px-8">
 					<div className="flex items-center gap-3">
 						<Link href="/" className="flex items-center gap-3 group">
-							<h2 className="font-display text-xl font-bold leading-tight tracking-tight  text-white group-hover:opacity-80 transition-opacity">
+							<h2 className="font-display text-3xl font-bold leading-tight tracking-tight  text-white group-hover:opacity-80 transition-opacity">
 								GitStats
 							</h2>
-							<span className="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 font-body">
-								Portfolio
-							</span>
 						</Link>
 					</div>
 
