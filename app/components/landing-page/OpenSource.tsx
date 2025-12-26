@@ -16,7 +16,7 @@ export default function OpenSource() {
 						</p>
 						<div className="flex gap-4 justify-center">
 							<Link
-								href="https://github.com"
+								href="https://github.com/Elmountahiii/git-stats"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="bg-white text-[#111418] hover:bg-gray-100 font-bold py-3 px-8 rounded-lg shadow-lg flex items-center gap-2 transition-transform hover:-translate-y-1"

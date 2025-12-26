@@ -55,8 +55,7 @@ export default function Header() {
 
 				<div className="flex-1 flex justify-end items-center gap-3">
 					<a
-						href="https://github.com/elmountahiiii/git-stats"
-						target="_blank"
+						href="https://github.com/Elmountahiii/git-stats"
 						rel="noopener noreferrer"
 						className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface border border-gray-800 text-sm font-medium text-white hover:bg-surface-hover hover:border-gray-700 transition-all"
 					>
