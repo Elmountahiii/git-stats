@@ -3,43 +3,7 @@ import {
 	createErrorResponse,
 	createSuccessResponse,
 } from "@/app/types/http-response";
-
-interface LanguageNode {
-	name: string;
-	color: string;
-}
-
-interface LanguageEdge {
-	size: number;
-	node: LanguageNode;
-}
-
-interface RepositoryNode {
-	name: string;
-	languages: {
-		edges: LanguageEdge[];
-	};
-}
-
-interface GraphQLResponse {
-	data?: {
-		user: {
-			repositories: {
-				nodes: RepositoryNode[];
-			};
-		};
-	};
-	errors?: Array<{ message: string }>;
-}
-
-export interface LanguageStats {
-	name: string;
-	color: string;
-	size: number;
-	percentage: number;
-}
-
-const GITHUB_GRAPHQL_URL = "https://api.github.com/graphql";
+import { LanguageGraphQLResponse, LanguageStats } from "@/app/types/language";
 
 const USER_LANGUAGES_QUERY = `
   query ($login: String!) {
@@ -65,7 +29,7 @@ const USER_LANGUAGES_QUERY = `
 const fetchUserLanguages = async (
 	username: string,
 ): Promise<LanguageStats[]> => {
-	const response = await fetch(GITHUB_GRAPHQL_URL, {
+	const response = await fetch("https://api.github.com/graphql", {
 		method: "POST",
 		headers: {
 			Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
@@ -81,7 +45,7 @@ const fetchUserLanguages = async (
 		throw new Error(`GitHub API request failed: ${response.statusText}`);
 	}
 
-	const result = (await response.json()) as GraphQLResponse;
+	const result = (await response.json()) as LanguageGraphQLResponse;
 
 	if (result.errors) {
 		throw new Error(result.errors[0]?.message || "GraphQL query failed");
@@ -93,7 +57,6 @@ const fetchUserLanguages = async (
 
 	const repositories = result.data.user.repositories.nodes;
 
-	// Aggregate language sizes across all repositories
 	const languageMap = new Map<string, { size: number; color: string }>();
 
 	for (const repo of repositories) {
@@ -109,13 +72,11 @@ const fetchUserLanguages = async (
 		}
 	}
 
-	// Calculate total size for percentage calculation
 	const totalSize = Array.from(languageMap.values()).reduce(
 		(sum, lang) => sum + lang.size,
 		0,
 	);
 
-	// Convert to array and calculate percentages
 	const languageStats: LanguageStats[] = Array.from(languageMap.entries())
 		.map(([name, { size, color }]) => ({
 			name,

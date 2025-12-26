@@ -5,7 +5,7 @@ import {
 } from "@/app/types/http-response";
 import { GitHubOrganization } from "@/app/types/organization";
 
-const getUserOragnizations = async (username: string) => {
+const fetchOragnizations = async (username: string) => {
 	const response = await fetch(
 		`https://api.github.com/users/${username}/orgs`,
 		{
@@ -34,7 +34,16 @@ export async function GET(request: NextRequest) {
 		);
 	}
 
-	const userOrganizations = await getUserOragnizations(username);
+	try {
+		const organizations = await fetchOragnizations(username);
 
-	return NextResponse.json(createSuccessResponse("success", userOrganizations));
+		return NextResponse.json(createSuccessResponse("success", organizations));
+	} catch (error) {
+		const errorMessage =
+			error instanceof Error ? error.message : "Failed to fetch organizations";
+
+		return NextResponse.json(createErrorResponse("failed", errorMessage), {
+			status: 500,
+		});
+	}
 }

@@ -1,5 +1,5 @@
 import { Code } from "lucide-react";
-import { LanguageStats as LanguageStatsType } from "@/app/api/languages/route";
+import { LanguageStats as LanguageStatsType } from "@/app/types/language";
 import { HttpResponse } from "@/app/types/http-response";
 import LanguageChart from "./LanguageChart";
 

@@ -5,7 +5,7 @@ import {
 } from "@/app/types/http-response";
 import { GitHubRepository } from "@/app/types/github-repository";
 
-const getUserRepositories = async (username: string) => {
+const fetchRepositories = async (username: string) => {
 	const response = await fetch(
 		`https://api.github.com/users/${username}/repos`,
 		{
@@ -34,7 +34,16 @@ export async function GET(request: NextRequest) {
 		);
 	}
 
-	const userrepositories = await getUserRepositories(username);
+	try {
+		const repositories = await fetchRepositories(username);
 
-	return NextResponse.json(createSuccessResponse("success", userrepositories));
+		return NextResponse.json(createSuccessResponse("success", repositories));
+	} catch (error) {
+		const errorMessage =
+			error instanceof Error ? error.message : "Failed to fetch repositories";
+
+		return NextResponse.json(createErrorResponse("failed", errorMessage), {
+			status: 500,
+		});
+	}
 }

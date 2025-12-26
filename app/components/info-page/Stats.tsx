@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 
 import { StatCardProps } from "@/app/types/types";
-import { UserStats } from "@/app/api/stats/route";
+import { UserStats } from "@/app/types/stats";
 import { HttpResponse } from "@/app/types/http-response";
 
 const StatCard = ({

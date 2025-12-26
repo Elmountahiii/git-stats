@@ -5,7 +5,7 @@ import {
 	createSuccessResponse,
 } from "@/app/types/http-response";
 
-const getUserData = async (username: string) => {
+const fetchUser = async (username: string) => {
 	const response = await fetch(`https://api.github.com/users/${username}`, {
 		headers: {
 			Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
@@ -16,8 +16,8 @@ const getUserData = async (username: string) => {
 	if (!response.ok) {
 		throw new Error("Failed to fetch user data");
 	}
-	const userData = (await response.json()) as GitHubUser;
-	return userData;
+	const user = (await response.json()) as GitHubUser;
+	return user;
 };
 
 export async function GET(request: NextRequest) {
@@ -31,7 +31,16 @@ export async function GET(request: NextRequest) {
 		);
 	}
 
-	const userData = await getUserData(username);
+	try {
+		const user = await fetchUser(username);
 
-	return NextResponse.json(createSuccessResponse("success", userData));
+		return NextResponse.json(createSuccessResponse("success", user));
+	} catch (error) {
+		const errorMessage =
+			error instanceof Error ? error.message : "Failed to fetch user data";
+
+		return NextResponse.json(createErrorResponse("failed", errorMessage), {
+			status: 500,
+		});
+	}
 }

@@ -3,43 +3,11 @@ import {
 	createErrorResponse,
 	createSuccessResponse,
 } from "@/app/types/http-response";
-
-interface ContributionDay {
-	contributionCount: number;
-	date: string;
-}
-
-interface ContributionWeek {
-	contributionDays: ContributionDay[];
-}
-
-interface GraphQLResponse {
-	data?: {
-		user: {
-			contributionsCollection: {
-				contributionCalendar: {
-					totalContributions: number;
-					weeks: ContributionWeek[];
-				};
-			};
-		};
-	};
-	errors?: Array<{ message: string }>;
-}
-
-export interface CommitActivity {
-	date: string;
-	commits: number;
-}
-
-export interface CommitActivityResponse {
-	totalContributions: number;
-	dailyActivity: CommitActivity[];
-	weeklyActivity: { week: string; commits: number }[];
-	monthlyActivity: { month: string; commits: number }[];
-}
-
-const GITHUB_GRAPHQL_URL = "https://api.github.com/graphql";
+import {
+	CommitGraphQLResponse,
+	CommitActivity,
+	CommitActivityResponse,
+} from "@/app/types/commit";
 
 const COMMIT_ACTIVITY_QUERY = `
   query ($login: String!) {
@@ -62,7 +30,7 @@ const COMMIT_ACTIVITY_QUERY = `
 const fetchCommitActivity = async (
 	username: string,
 ): Promise<CommitActivityResponse> => {
-	const response = await fetch(GITHUB_GRAPHQL_URL, {
+	const response = await fetch("https://api.github.com/graphql", {
 		method: "POST",
 		headers: {
 			Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
@@ -78,7 +46,7 @@ const fetchCommitActivity = async (
 		throw new Error(`GitHub API request failed: ${response.statusText}`);
 	}
 
-	const result = (await response.json()) as GraphQLResponse;
+	const result = (await response.json()) as CommitGraphQLResponse;
 
 	if (result.errors) {
 		throw new Error(result.errors[0]?.message || "GraphQL query failed");
@@ -92,7 +60,6 @@ const fetchCommitActivity = async (
 		result.data.user.contributionsCollection.contributionCalendar;
 	const weeks = calendar.weeks;
 
-	// Daily activity (all days)
 	const dailyActivity: CommitActivity[] = [];
 	for (const week of weeks) {
 		for (const day of week.contributionDays) {
@@ -103,12 +70,10 @@ const fetchCommitActivity = async (
 		}
 	}
 
-	// Sort by date ascending
 	dailyActivity.sort(
 		(a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
 	);
 
-	// Weekly activity (aggregate by week)
 	const weeklyActivity: { week: string; commits: number }[] = weeks.map(
 		(week, index) => {
 			const weekStart = week.contributionDays[0]?.date || `Week ${index + 1}`;
@@ -123,7 +88,6 @@ const fetchCommitActivity = async (
 		},
 	);
 
-	// Monthly activity (aggregate by month)
 	const monthlyMap = new Map<string, number>();
 	for (const day of dailyActivity) {
 		const date = new Date(day.date);

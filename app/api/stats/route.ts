@@ -3,43 +3,12 @@ import {
 	createErrorResponse,
 	createSuccessResponse,
 } from "@/app/types/http-response";
-
-interface ContributionDay {
-	contributionCount: number;
-	date: string;
-}
-
-interface ContributionWeek {
-	contributionDays: ContributionDay[];
-}
-
-interface GraphQLResponse {
-	data?: {
-		user: {
-			contributionsCollection: {
-				totalCommitContributions: number;
-				restrictedContributionsCount: number;
-				contributionCalendar: {
-					totalContributions: number;
-					weeks: ContributionWeek[];
-				};
-			};
-			followers: {
-				totalCount: number;
-			};
-		};
-	};
-	errors?: Array<{ message: string }>;
-}
-
-export interface UserStats {
-	universalRank: string;
-	longestStreak: number;
-	totalCommits: number;
-	mostActiveMonth: string;
-}
-
-const GITHUB_GRAPHQL_URL = "https://api.github.com/graphql";
+import {
+	ContributionDay,
+	ContributionWeek,
+	StatsGraphQLResponse,
+	UserStats,
+} from "@/app/types/stats";
 
 const USER_STATS_QUERY = `
   query ($login: String!) {
@@ -123,11 +92,8 @@ const calculateUniversalRank = (
 	totalContributions: number,
 	followers: number,
 ): string => {
-	// Score based on contributions and followers
 	const score = totalContributions + followers * 2;
 
-	// Approximate percentile based on typical GitHub user activity
-	// These thresholds are estimates based on GitHub user distribution
 	if (score >= 5000) return "Top 1%";
 	if (score >= 2500) return "Top 5%";
 	if (score >= 1000) return "Top 10%";
@@ -139,7 +105,7 @@ const calculateUniversalRank = (
 };
 
 const fetchUserStats = async (username: string): Promise<UserStats> => {
-	const response = await fetch(GITHUB_GRAPHQL_URL, {
+	const response = await fetch("https://api.github.com/graphql", {
 		method: "POST",
 		headers: {
 			Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
@@ -155,7 +121,7 @@ const fetchUserStats = async (username: string): Promise<UserStats> => {
 		throw new Error(`GitHub API request failed: ${response.statusText}`);
 	}
 
-	const result = (await response.json()) as GraphQLResponse;
+	const result = (await response.json()) as StatsGraphQLResponse;
 
 	if (result.errors) {
 		throw new Error(result.errors[0]?.message || "GraphQL query failed");

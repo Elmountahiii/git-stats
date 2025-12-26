@@ -1,4 +1,4 @@
-import { CommitActivityResponse } from "@/app/api/commits/route";
+import { CommitActivityResponse } from "@/app/types/commit";
 import { HttpResponse } from "@/app/types/http-response";
 import CommitActivityChart from "./CommitActivityChart";
 
