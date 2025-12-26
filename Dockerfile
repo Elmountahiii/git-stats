@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY package.json ./
 
 # Install dependencies
-RUN npm install --production
+RUN npm install 
 
 # Stage 2: Build the application
 FROM node:22-bookworm-slim AS builder
